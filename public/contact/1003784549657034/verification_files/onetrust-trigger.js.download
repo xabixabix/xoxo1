@@ -1,0 +1,32 @@
+const checkOtAttr = (event) => {
+  const path = event.path || (event.composedPath && event.composedPath());
+
+  return !!path.find((el) => {
+    if (el.id === "footer_menu_item_ba-one-trust-cookie") {
+      return true;
+    }
+    if (el && el.getAttribute) {
+      return el.getAttribute("data-ot-trigger") === "true";
+    }
+    return false;
+  });
+};
+document.addEventListener("click", (event) => {
+  if (checkOtAttr(event)) {
+    if (!window.OneTrust) {
+      console.error("please load oneTrust chunk first");
+    } else {
+      window.OneTrust.ToggleInfoDisplay();
+    }
+
+    event.preventDefault();
+  }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  const sy = document.createElement("style");
+  sy.innerHTML = `#ot-sdk-btn-floating {
+    display: none;
+}`;
+  document.body.append(sy);
+});
